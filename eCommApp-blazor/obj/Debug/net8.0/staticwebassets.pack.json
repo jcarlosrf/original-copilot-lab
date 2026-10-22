@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\ECommAppBlazor.bundle.scp.css",
+      "PackagePath": "staticwebassets\\ECommAppBlazor.bundle.scp.css"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\app.css",
+      "PackagePath": "staticwebassets\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ECommAppBlazor.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.ECommAppBlazor.props",
+      "PackagePath": "build\\ECommAppBlazor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.ECommAppBlazor.props",
+      "PackagePath": "buildMultiTargeting\\ECommAppBlazor.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.ECommAppBlazor.props",
+      "PackagePath": "buildTransitive\\ECommAppBlazor.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
