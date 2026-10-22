@@ -1,3 +1,10 @@
+
+## [t13] Connect demo flows to Blazor UI
+- `Routes.razor` needs `@rendermode InteractiveServer`; DI registration by itself does not make route components interactive.
+- t12 services preserve the expected flows: cart items compose `Product` + `Quantity`, review updates are in-memory, checkout returns an order and clears the cart.
+- Direct DLL startup from an isolated test output can omit the generated scoped CSS bundle even when route and event behavior work; use `dotnet run` for full static asset verification.
+- Browser exercised demo login, promotion, review, cart addition, out-of-stock display, checkout cancellation and confirmation; domain tests passed after edits.
+- Learnings consumed: [frontend/blazor-dotnet8-scaffold, frontend/blazor-phase-one-json-catalog]
 ## [t3] Scaffold .NET 8 Blazor project
 - The target path must contain the project file directly: `dotnet new blazor --name ...` alone created a nested project directory, so use `--output .` from the prepared output folder.
 - A second template invocation left duplicate Razor components and top-level `Program.cs`; removing only that generated nested directory restored a clean build.

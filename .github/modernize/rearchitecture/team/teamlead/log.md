@@ -26,3 +26,8 @@
 - O run 30cb0377-521a-4005-9477-4db1d3327535 concluiu 11/11 tasks e 7/7 fases; o gate t8 registra PASS sem findings HIGH ou CRITICAL.
 - O fechamento inclui board, perfil, evidências de validação e registros de equipe; nenhuma alteração de código da aplicação está pendente.
 - Learnings consumed: [none]
+
+## [after_t13] Commit das mudanças atuais após a fase Demo Flows
+- O board registra t13 como concluído; t15 permanece em andamento, sem arquivos próprios alterados no status observado antes do commit.
+- A ação apenas registrou este log de coordenação; nenhum fonte foi editado ou removido por esta operação.
+- Learnings consumed: [none]

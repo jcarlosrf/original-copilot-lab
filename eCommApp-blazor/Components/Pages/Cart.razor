@@ -1,8 +1,92 @@
 @page "/cart"
+@inject ICartService CartService
 
 <PageTitle>Cart | The Daily Harvest</PageTitle>
 
-<section class="cart-container">
-    <h2>Your Cart</h2>
-    <p>Your cart is empty.</p>
-</section>
+@if (processedOrder is not null)
+{
+    <section class="order-processed-container">
+        <h2>Your order has been processed!</h2>
+        <div class="cart-items-grid">
+            @foreach (var item in processedOrder.Items)
+            {
+                <article class="cart-item-card" @key="item.Product.Id">
+                    <img src="@GetImageUrl(item.Product)" alt="@item.Product.Name" class="cart-item-image" />
+                    <div class="cart-item-info">
+                        <h3>@item.Product.Name</h3>
+                        <p>Price: @FormatPrice(item.Product.Price)</p>
+                        <p>Quantity: @item.Quantity</p>
+                    </div>
+                </article>
+            }
+        </div>
+        <p>Total: @FormatPrice(processedOrder.Total)</p>
+    </section>
+}
+else
+{
+    <section class="cart-container">
+        <h2>Your Cart</h2>
+        @if (CartService.Items.Count == 0)
+        {
+            <p>Your cart is empty.</p>
+        }
+        else
+        {
+            <div class="cart-items-grid">
+                @foreach (var item in CartService.Items)
+                {
+                    <article class="cart-item-card" @key="item.Product.Id">
+                        <img src="@GetImageUrl(item.Product)" alt="@item.Product.Name" class="cart-item-image" />
+                        <div class="cart-item-info">
+                            <h3>@item.Product.Name</h3>
+                            <p>Price: @FormatPrice(item.Product.Price)</p>
+                            <p>Quantity: @item.Quantity</p>
+                        </div>
+                    </article>
+                }
+            </div>
+            <p>Total: @FormatPrice(CartService.Total)</p>
+            <button type="button" class="checkout-btn" @onclick="OpenCheckout">Checkout</button>
+        }
+    </section>
+}
+
+@if (showCheckoutConfirmation)
+{
+    <div class="modal-backdrop">
+        <section class="modal-content" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+            <h2 id="checkout-title">Are you sure?</h2>
+            <p>Do you want to proceed with the checkout?</p>
+            <div class="checkout-modal-actions">
+                <button type="button" @onclick="ConfirmCheckout">Continue Checkout</button>
+                <button type="button" class="cancel-btn" @onclick="CancelCheckout">Return to cart</button>
+            </div>
+        </section>
+    </div>
+}
+
+@code {
+    private Order? processedOrder;
+    private bool showCheckoutConfirmation;
+
+    private void OpenCheckout()
+    {
+        showCheckoutConfirmation = true;
+    }
+
+    private void ConfirmCheckout()
+    {
+        processedOrder = CartService.Checkout();
+        showCheckoutConfirmation = false;
+    }
+
+    private void CancelCheckout()
+    {
+        showCheckoutConfirmation = false;
+    }
+
+    private static string GetImageUrl(Product product) => $"/products/productImages/{product.Image}";
+
+    private static string FormatPrice(decimal price) => string.Format(CultureInfo.InvariantCulture, "${0:0.00}", price);
+}

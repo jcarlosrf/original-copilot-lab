@@ -1,5 +1,6 @@
 @page "/products"
-@inject IWebHostEnvironment WebHostEnvironment
+@inject ICatalogService CatalogService
+@inject ICartService CartService
 @inject ILogger<Products> Logger
 
 <PageTitle>Products | The Daily Harvest</PageTitle>
@@ -8,6 +9,13 @@
 {
     <div class="loading">Loading products...</div>
 }
+else if (loadError is not null)
+{
+    <section class="products-container">
+        <h2>Our Products</h2>
+        <p role="alert">@loadError</p>
+    </section>
+}
 else
 {
     <section class="products-container">
@@ -15,43 +23,98 @@ else
         <div class="products-grid">
             @foreach (var product in products)
             {
-                <article class="product-card">
-                    <img src="@GetImageUrl(product)" alt="@GetName(product)" class="product-image" />
+                <article class="product-card" @key="product.Id">
+                    <img src="@GetImageUrl(product)"
+                         alt="@product.Name"
+                         class="product-image"
+                         role="button"
+                         tabindex="0"
+                         aria-label="Read reviews for @product.Name"
+                         style="cursor: pointer;"
+                         @onclick="() => OpenReviews(product)"
+                         @onkeydown="args => OpenReviewsOnKeyDown(args, product)" />
                     <div class="product-info">
-                        <h3 class="product-name">@GetName(product)</h3>
-                        <p class="product-price">@GetPrice(product)</p>
-                        <p class="product-description">@GetDescription(product)</p>
+                        <h3 class="product-name">@product.Name</h3>
+                        <p class="product-price">@FormatPrice(product.Price)</p>
+                        <p class="product-description">@product.Description</p>
+                        <button type="button" class="product-reviews-btn" @onclick="() => OpenReviews(product)">
+                            Read reviews (@product.Reviews.Count)
+                        </button>
                         <button type="button"
-                                class="add-to-cart-btn @(IsInStock(product) ? string.Empty : "disabled")"
-                                disabled="@(!IsInStock(product))">
-                            @(IsInStock(product) ? "Add to Cart" : "Out of Stock")
+                                class="add-to-cart-btn @(product.InStock ? string.Empty : "disabled")"
+                                disabled="@(!product.InStock)"
+                                @onclick="() => AddToCart(product)">
+                            @(product.InStock ? "Add to Cart" : "Out of Stock")
                         </button>
                     </div>
                 </article>
             }
         </div>
+        @if (!string.IsNullOrEmpty(cartMessage))
+        {
+            <p role="status">@cartMessage</p>
+        }
     </section>
 }
 
+@if (selectedProduct is not null)
+{
+    <div class="modal-backdrop" @onclick="CloseReviews">
+        <section class="modal-content" role="dialog" aria-modal="true" aria-labelledby="reviews-title" @onclick:stopPropagation="true">
+            <button type="button" class="close-button" aria-label="Close reviews" @onclick="CloseReviews">Close</button>
+            <h2 id="reviews-title">Reviews for @selectedProduct.Name</h2>
+            <div class="reviews-list">
+                @if (selectedProduct.Reviews.Count > 0)
+                {
+                    @foreach (var review in selectedProduct.Reviews)
+                    {
+                        <article class="review">
+                            <p><strong>@review.Author</strong> (@FormatReviewDate(review.Date)):</p>
+                            <p>@review.Comment</p>
+                        </article>
+                    }
+                }
+                else
+                {
+                    <p>No reviews yet.</p>
+                }
+            </div>
+            <form class="review-form" @onsubmit="SubmitReview" @onsubmit:preventDefault>
+                <h3>Leave a Review</h3>
+                <label for="review-author">Your name</label>
+                <input id="review-author" @bind="reviewAuthor" required />
+                <label for="review-comment">Your review</label>
+                <textarea id="review-comment" @bind="reviewComment" required></textarea>
+                @if (!string.IsNullOrEmpty(reviewError))
+                {
+                    <p role="alert">@reviewError</p>
+                }
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+    </div>
+}
+
 @code {
-    private static readonly string[] ProductFiles = ["apple.json", "grapes.json", "orange.json", "pear.json"];
-    private readonly List<JsonElement> products = [];
+    private IReadOnlyList<Product> products = [];
+    private Product? selectedProduct;
+    private string reviewAuthor = string.Empty;
+    private string reviewComment = string.Empty;
+    private string? reviewError;
+    private string? cartMessage;
+    private string? loadError;
     private bool isLoading = true;
 
     protected override async Task OnInitializedAsync()
     {
         try
         {
-            foreach (var fileName in ProductFiles)
-            {
-                var filePath = Path.Combine(WebHostEnvironment.WebRootPath, "products", fileName);
-                using var document = JsonDocument.Parse(await File.ReadAllTextAsync(filePath));
-                products.Add(document.RootElement.Clone());
-            }
+            products = await CatalogService.GetProductsAsync();
         }
         catch (Exception exception)
         {
             Logger.LogError(exception, "Error loading products.");
+            loadError = "Unable to load products. Please try again later.";
         }
         finally
         {
@@ -59,16 +122,65 @@ else
         }
     }
 
-    private static string GetName(JsonElement product) => product.GetProperty("name").GetString() ?? string.Empty;
+    private void AddToCart(Product product)
+    {
+        cartMessage = CartService.TryAddToCart(product)
+            ? $"{product.Name} added to cart."
+            : $"{product.Name} is out of stock.";
+    }
 
-    private static string GetDescription(JsonElement product) => product.GetProperty("description").GetString() ?? string.Empty;
+    private void OpenReviews(Product product)
+    {
+        selectedProduct = product;
+        reviewAuthor = string.Empty;
+        reviewComment = string.Empty;
+        reviewError = null;
+    }
 
-    private static string GetImageUrl(JsonElement product) => $"/products/productImages/{product.GetProperty("image").GetString()}";
+    private void OpenReviewsOnKeyDown(KeyboardEventArgs args, Product product)
+    {
+        if (args.Key is "Enter" or " ")
+        {
+            OpenReviews(product);
+        }
+    }
 
-    private static string GetPrice(JsonElement product) => string.Format(
-        CultureInfo.InvariantCulture,
-        "${0:0.00}",
-        product.GetProperty("price").GetDecimal());
+    private void CloseReviews()
+    {
+        selectedProduct = null;
+    }
 
-    private static bool IsInStock(JsonElement product) => product.GetProperty("inStock").GetBoolean();
+    private async Task SubmitReview()
+    {
+        if (selectedProduct is null)
+        {
+            return;
+        }
+
+        var productId = selectedProduct.Id;
+        var added = await CatalogService.AddReviewAsync(productId, new Review
+        {
+            Author = reviewAuthor.Trim(),
+            Comment = reviewComment.Trim()
+        });
+
+        if (!added)
+        {
+            reviewError = "Unable to add a review for this product.";
+            return;
+        }
+
+        selectedProduct = await CatalogService.GetProductByIdAsync(productId);
+        reviewAuthor = string.Empty;
+        reviewComment = string.Empty;
+        reviewError = null;
+    }
+
+    private static string GetImageUrl(Product product) => $"/products/productImages/{product.Image}";
+
+    private static string FormatPrice(decimal price) => string.Format(CultureInfo.InvariantCulture, "${0:0.00}", price);
+
+    private static string FormatReviewDate(string date) => DateTimeOffset.TryParse(date, out var parsedDate)
+        ? parsedDate.ToLocalTime().ToString("d", CultureInfo.CurrentCulture)
+        : date;
 }

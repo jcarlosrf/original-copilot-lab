@@ -26,6 +26,7 @@
 > seguir com passo 2 e 3 direto. sem testes, gere o codigo e teste somente no final, de modo mais rapido e produtivo
 
 **Continuation started**: 2026-10-22T20:29:10Z
+**Commit (Domain Services)**: fcd83916800137a316f6f2facb2a7cb060508c0b
 
 ## Tasks
 
@@ -58,10 +59,10 @@
 - ✅ t12 [backend] Implement domain models and in-memory demo services (2026-10-22T20:29:48Z→2026-10-22T20:38:25Z, 8m 37s) [deps: t4]
 
 ### Phase: Demo Flows
-- ⏳ t13 [frontend] Wire demo flows into the existing Blazor UI [deps: t12]
+- ✅ t13 [frontend] Wire demo flows into the existing Blazor UI (2026-10-22T20:41:20Z→2026-10-22T20:55:58Z, 14m 38s) [deps: t4, t12]
 
 ### Phase: Dependency Review
-- ⏳ t15 [devops] Scan and remediate test-project NuGet dependencies via skill(cve-remediation) [deps: t13]
+- 🔄 t15 [devops] Scan and remediate test-project NuGet dependencies via skill(cve-remediation) (dispatched 2026-10-22T20:58:51Z) [deps: t13]
 
 ### Phase: Final Validation
 - ⏳ t14 [tester] Run final test and flow-verification pass [deps: t13, t15, t7]

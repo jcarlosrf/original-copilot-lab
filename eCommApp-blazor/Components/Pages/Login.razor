@@ -1,14 +1,39 @@
 @page "/login"
+@inject NavigationManager Navigation
 
 <PageTitle>Admin Login | The Daily Harvest</PageTitle>
 
 <section class="login-container">
     <h2>Admin Login</h2>
-    <div class="login-form">
+    <form class="login-form" @onsubmit="HandleLogin" @onsubmit:preventDefault>
         <label for="username">Username</label>
-        <input id="username" name="username" type="text" autocomplete="username" />
+        <input id="username" name="username" type="text" autocomplete="username" @bind="username" />
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" autocomplete="current-password" />
-        <button type="button">Login</button>
-    </div>
+        <input id="password" name="password" type="password" autocomplete="current-password" @bind="password" />
+        <button type="submit">Login</button>
+        @if (!string.IsNullOrEmpty(loginError))
+        {
+            <p role="alert">@loginError</p>
+        }
+    </form>
 </section>
+
+@code {
+    private string username = string.Empty;
+    private string password = string.Empty;
+    private string? loginError;
+
+    private void HandleLogin()
+    {
+        if (username == "admin" && password == "admin")
+        {
+            loginError = null;
+            username = string.Empty;
+            password = string.Empty;
+            Navigation.NavigateTo("/admin");
+            return;
+        }
+
+        loginError = "Invalid credentials";
+    }
+}

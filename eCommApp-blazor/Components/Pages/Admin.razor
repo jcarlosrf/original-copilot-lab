@@ -6,12 +6,48 @@
     <h2>Welcome to the admin portal.</h2>
     <div class="admin-sale-controls">
         <label for="salePercent">Set Sale Percent (% off for all items):</label>
-        <input id="salePercent" name="salePercent" type="text" value="0" />
+        <input id="salePercent" name="salePercent" type="text" @bind="inputValue" />
         <div class="admin-actions">
-            <button type="button">Submit</button>
-            <button type="button">End Sale</button>
+            <button type="button" @onclick="SubmitSale">Submit</button>
+            <button type="button" @onclick="EndSale">End Sale</button>
         </div>
     </div>
-    <p class="sale-status">No sale active.</p>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p role="alert">@errorMessage</p>
+    }
+    <p class="sale-status" role="status">@(salePercent > 0 ? $"All products are {salePercent}% off!" : "No sale active.")</p>
     <a class="storefront-button" href="/">Back to Storefront</a>
 </section>
+
+@code {
+    private decimal salePercent;
+    private string inputValue = "0";
+    private string? errorMessage;
+
+    private void SubmitSale()
+    {
+        if (string.IsNullOrWhiteSpace(inputValue))
+        {
+            salePercent = 0;
+            errorMessage = null;
+            return;
+        }
+
+        if (!decimal.TryParse(inputValue, NumberStyles.Float, CultureInfo.InvariantCulture, out var parsedPercent))
+        {
+            errorMessage = $"Invalid input: \"{inputValue}\". Please enter a valid number.";
+            return;
+        }
+
+        salePercent = parsedPercent;
+        errorMessage = null;
+    }
+
+    private void EndSale()
+    {
+        salePercent = 0;
+        inputValue = "0";
+        errorMessage = null;
+    }
+}
