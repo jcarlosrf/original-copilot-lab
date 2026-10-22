@@ -1,0 +1,421 @@
+{
+  "schema": "clarification-questions/v1",
+  "generated_at": "2026-10-22T14:59:35Z",
+  "user_input": "VAmos retomar a conversao:\n\nMigração incremental:\n\n1. Criar o projeto C# e reproduzir layout, navegação e as cinco páginas, reaproveitando CSS, imagens e JSON do catálogo.\n2. Definir modelos `Product`, `Review`, `CartItem` e `Order`, além de serviços para catálogo e carrinho. Manter os dados em JSON inicialmente preserva o escopo atual.\n3. Migrar e testar cada fluxo: adicionar ao carrinho, indisponibilidade, avaliações, promoção, login/admin e confirmação do checkout.\n\nComece realizando o passo 1 desta lista",
+  "title": "React para Blazor demonstrativo",
+  "assessment_snapshot": {
+    "intro": "O projeto identificado é uma SPA React/TypeScript com Vite e um módulo pequeno; o escopo atual é o primeiro passo da conversão para C# Blazor.",
+    "bullets": [
+      "Cinco rotas React, catálogo em quatro arquivos JSON e imagens locais.",
+      "O pedido limita esta etapa a criar o projeto e reproduzir layout e navegação; os fluxos e serviços ficam para as etapas seguintes.",
+      "Não há backend nem banco de dados identificados no projeto atual."
+    ]
+  },
+  "proposed_outcome": "Criar um novo projeto C# Blazor Web App em diretório separado, preservando o React original, reaproveitando CSS, imagens e JSON e reproduzindo as cinco páginas e seus caminhos; sem implementar backend, autenticação ou persistência nesta etapa.",
+  "scope": [
+    "frontend",
+    "generic"
+  ],
+  "status": "answered",
+  "questions": [
+    {
+      "id": "F1",
+      "kit": "frontend",
+      "field": "target.framework",
+      "title": "Versão do Blazor/.NET",
+      "question": "Qual versão do .NET deve ser usada para o Blazor Web App?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "Blazor Web App com .NET 10",
+      "default": null,
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "Blazor Web App com .NET 8",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Blazor Web App com .NET 10",
+          "label": "Blazor Web App com .NET 10"
+        },
+        {
+          "value": "Blazor Web App com .NET 8",
+          "label": "Blazor Web App com .NET 8"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F2",
+      "kit": "frontend",
+      "field": "target.component_library",
+      "title": "Biblioteca visual",
+      "question": "A interface deve usar alguma biblioteca de componentes ou somente o CSS existente?",
+      "importance": "required",
+      "impact": 4,
+      "recommended": "Sem biblioteca; reaproveitar CSS atual",
+      "default": null,
+      "prefilled": true,
+      "prefilled_value": "Sem biblioteca; reaproveitar CSS atual",
+      "answer": {
+        "value": "Sem biblioteca; reaproveitar CSS atual",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Sem biblioteca; reaproveitar CSS atual",
+          "label": "Sem biblioteca; reaproveitar CSS atual"
+        },
+        {
+          "value": "Bootstrap",
+          "label": "Bootstrap"
+        },
+        {
+          "value": "MudBlazor",
+          "label": "MudBlazor"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F3",
+      "kit": "frontend",
+      "field": "visual.screenshots",
+      "title": "Referências visuais",
+      "question": "Há screenshots/recordings para fornecer ou devemos usar as páginas React e os arquivos CSS existentes como referência visual?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": null,
+      "prefilled": true,
+      "prefilled_value": "Usar as páginas em eCommApp/src/components e os estilos eCommApp/src/App.css e eCommApp/src/index.css como referência; nenhum screenshot foi anexado nesta conversa.",
+      "answer": {
+        "value": "Usar as páginas em eCommApp/src/components e os estilos eCommApp/src/App.css e eCommApp/src/index.css como referência; nenhum screenshot foi anexado nesta conversa.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "F4",
+      "kit": "frontend",
+      "field": "visual.design_system",
+      "title": "Sistema visual",
+      "question": "Confirme a origem visual para reproduzir o app: CSS atual, imagens e estilos extraídos do projeto React?",
+      "importance": "required",
+      "impact": 4,
+      "recommended": null,
+      "default": "match existing pixel-by-pixel using extracted CSS custom properties",
+      "prefilled": true,
+      "prefilled_value": "Reaproveitar e adaptar o CSS e as imagens existentes; manter o layout visual do projeto atual.",
+      "answer": {
+        "value": "Reaproveitar e adaptar o CSS e as imagens existentes; manter o layout visual do projeto atual.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "F5",
+      "kit": "frontend",
+      "field": "compliance.accessibility",
+      "title": "Acessibilidade",
+      "question": "Qual padrão de acessibilidade devemos mirar nesta reprodução?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "WCAG 2.1 AA",
+      "default": "WCAG 2.1 AA",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "Sem requisito formal.  Permanecer como ja está, isso será uma nova etapa posteriormente.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "WCAG 2.1 AA",
+          "label": "WCAG 2.1 AA"
+        },
+        {
+          "value": "WCAG 2.2 AA",
+          "label": "WCAG 2.2 AA"
+        },
+        {
+          "value": "Sem requisito formal",
+          "label": "Sem requisito formal"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F6",
+      "kit": "frontend",
+      "field": "compatibility.browsers",
+      "title": "Navegadores",
+      "question": "Quais navegadores devem ser considerados para a demonstração?",
+      "importance": "recommended",
+      "impact": 2,
+      "recommended": "Evergreen: Edge, Chrome, Firefox e Safari nas duas versões principais mais recentes",
+      "default": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "modern evergreen (Chrome, Firefox, Safari, Edge — latest 2 major versions)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Evergreen: Edge, Chrome, Firefox e Safari nas duas versões principais mais recentes",
+          "label": "Evergreen: Edge, Chrome, Firefox e Safari nas duas versões principais mais recentes"
+        },
+        {
+          "value": "Somente Microsoft Edge atual",
+          "label": "Somente Microsoft Edge atual"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F7",
+      "kit": "frontend",
+      "field": "responsive.breakpoints",
+      "title": "Layout responsivo",
+      "question": "Como tratar responsividade nesta etapa?",
+      "importance": "recommended",
+      "impact": 3,
+      "recommended": "Preservar comportamento responsivo e breakpoints do CSS atual",
+      "default": "mobile-first using existing breakpoints detected from codebase",
+      "prefilled": true,
+      "prefilled_value": "Preservar comportamento responsivo e breakpoints do CSS atual",
+      "answer": {
+        "value": "Preservar comportamento responsivo e breakpoints do CSS atual",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Preservar comportamento responsivo e breakpoints do CSS atual",
+          "label": "Preservar comportamento responsivo e breakpoints do CSS atual"
+        },
+        {
+          "value": "Desktop apenas",
+          "label": "Desktop apenas"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F8",
+      "kit": "frontend",
+      "field": "i18n.locales",
+      "title": "Idioma da interface",
+      "question": "Quais idiomas devem aparecer na interface Blazor?",
+      "importance": "optional",
+      "impact": 1,
+      "recommended": "Manter o idioma atual da interface (inglês)",
+      "default": "preserve current locales; keep existing i18n library if present",
+      "prefilled": true,
+      "prefilled_value": "Manter o idioma atual da interface (inglês)",
+      "answer": {
+        "value": "Manter o idioma atual da interface (inglês)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Manter o idioma atual da interface (inglês)",
+          "label": "Manter o idioma atual da interface (inglês)"
+        },
+        {
+          "value": "Traduzir para português",
+          "label": "Traduzir para português"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F9",
+      "kit": "frontend",
+      "field": "state_mgmt.preference",
+      "title": "Estado da interface",
+      "question": "Qual abordagem de estado deve ser usada no novo Blazor?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": "Estado simples em memória, sem biblioteca externa",
+      "default": "preserve existing pattern if identifiable; otherwise recommend minimal (component state + server-state library)",
+      "prefilled": true,
+      "prefilled_value": "Estado simples em memória, sem biblioteca externa; sem persistência nesta etapa.",
+      "answer": {
+        "value": "Estado simples em memória, sem biblioteca externa; sem persistência nesta etapa.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Estado simples em memória, sem biblioteca externa",
+          "label": "Estado simples em memória, sem biblioteca externa"
+        },
+        {
+          "value": "Outra abordagem",
+          "label": "Outra abordagem"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "F10",
+      "kit": "frontend",
+      "field": "routing.preference",
+      "title": "Rotas",
+      "question": "Como preservar as URLs das cinco páginas no Blazor?",
+      "importance": "optional",
+      "impact": 3,
+      "recommended": "Roteamento nativo do Blazor, preservando /, /products, /login, /admin e /cart",
+      "default": "use the de-facto router for the chosen target framework",
+      "prefilled": true,
+      "prefilled_value": "Roteamento nativo do Blazor preservando as cinco rotas atuais.",
+      "answer": {
+        "value": "Roteamento nativo do Blazor preservando as cinco rotas atuais.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Roteamento nativo do Blazor, preservando /, /products, /login, /admin e /cart",
+          "label": "Roteamento nativo do Blazor, preservando /, /products, /login, /admin e /cart"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G1",
+      "kit": "generic",
+      "field": "success.definition",
+      "title": "Critério de conclusão",
+      "question": "O que define o sucesso desta primeira etapa?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": null,
+      "default": "feature parity with the current system; all existing user-facing behaviors preserved",
+      "prefilled": true,
+      "prefilled_value": "Criar o app C# Blazor em diretório separado e reproduzir layout, navegação e as cinco páginas usando CSS, imagens e JSON existentes; sem implementar os fluxos funcionais das etapas 2 e 3.",
+      "answer": {
+        "value": "Criar o app C# Blazor em diretório separado e reproduzir layout, navegação e as cinco páginas usando CSS, imagens e JSON existentes; sem implementar os fluxos funcionais das etapas 2 e 3.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "G2",
+      "kit": "generic",
+      "field": "out_of_scope",
+      "title": "Fora do escopo",
+      "question": "Confirme o que deve permanecer fora desta etapa.",
+      "importance": "recommended",
+      "impact": 4,
+      "recommended": null,
+      "default": "no explicit exclusions; agent will infer from project structure",
+      "prefilled": true,
+      "prefilled_value": "Backend/API, banco de dados, autenticação real, persistência e implementação dos fluxos de carrinho, avaliações, promoção e checkout; esses fluxos são etapas posteriores.",
+      "answer": {
+        "value": "Backend/API, banco de dados, autenticação real, persistência e implementação dos fluxos de carrinho, avaliações, promoção e checkout; esses fluxos são etapas posteriores.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    },
+    {
+      "id": "G3",
+      "kit": "generic",
+      "field": "existing_tests.posture",
+      "title": "Testes existentes",
+      "question": "Como tratar os testes React durante a criação do novo projeto?",
+      "importance": "recommended",
+      "impact": 2,
+      "recommended": "Manter o React intacto e exigir que os testes existentes continuem passando",
+      "default": "must pass",
+      "prefilled": true,
+      "prefilled_value": "Manter o React intacto e exigir que os testes existentes continuem passando.",
+      "answer": {
+        "value": "Manter o React intacto e exigir que os testes existentes continuem passando.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "Manter o React intacto e exigir que os testes existentes continuem passando",
+          "label": "Manter o React intacto e exigir que os testes existentes continuem passando"
+        },
+        {
+          "value": "Permitir alterações nos testes React",
+          "label": "Permitir alterações nos testes React"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G4",
+      "kit": "generic",
+      "field": "target.output_location",
+      "title": "Diretório do novo projeto",
+      "question": "Onde criar o novo projeto Blazor?",
+      "importance": "required",
+      "impact": 5,
+      "recommended": "eCommApp-blazor (novo diretório irmão de eCommApp)",
+      "default": "eCommApp-new",
+      "prefilled": false,
+      "prefilled_value": null,
+      "answer": {
+        "value": "eCommApp-blazor (novo diretório irmão de eCommApp)",
+        "source": "user"
+      },
+      "depends_on": null,
+      "options": [
+        {
+          "value": "eCommApp-blazor (novo diretório irmão de eCommApp)",
+          "label": "eCommApp-blazor (novo diretório irmão de eCommApp)"
+        },
+        {
+          "value": "In-place (substituir eCommApp)",
+          "label": "In-place (substituir eCommApp)"
+        }
+      ],
+      "allow_other": true,
+      "type": "single_select"
+    },
+    {
+      "id": "G5",
+      "kit": "generic",
+      "field": "constraints.additional",
+      "title": "Restrições adicionais",
+      "question": "Há alguma restrição adicional para esta etapa?",
+      "importance": "optional",
+      "impact": 2,
+      "recommended": null,
+      "default": "None beyond the decisions listed in this specification.",
+      "prefilled": true,
+      "prefilled_value": "Não implementar a loja como serviço real; é um programa de treinamento e demonstração. Preservar o app React original.",
+      "answer": {
+        "value": "Não implementar a loja como serviço real; é um programa de treinamento e demonstração. Preservar o app React original.",
+        "source": "user"
+      },
+      "depends_on": null,
+      "type": "text"
+    }
+  ]
+}

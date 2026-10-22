@@ -1,0 +1,44 @@
+project:
+  scope_path: "."
+  loc: 647
+  modules: 1
+  languages: [TypeScript, JavaScript, HTML, CSS]
+  git: true
+  structure:
+    eCommApp: "SPA React/Vite com cinco rotas, catálogo JSON, imagens e testes Vitest"
+    AdditionalLearning: "Material de treinamento"
+    Instructions: "Guias e laboratórios"
+    media: "Imagens usadas pelo material e projeto"
+  notes: "Migração demonstrativa React/TypeScript para C# Blazor; nesta etapa reproduzir estrutura visual, navegação e páginas, sem implementar backend funcional."
+
+assessment:
+  change_type: rewrite
+  rationale: |
+    O projeto existente é uma SPA React/TypeScript e o pedido é criar uma aplicação C# Blazor separada, preservando layout, navegação, páginas e dados estáticos. O escopo é limitado a um módulo pequeno, sem backend funcional.
+  transformations:
+    - fromStack: React + TypeScript + Vite
+      fromStackVersion: "React 18.2; TypeScript 5; Vite 4.4"
+      toStack: C# Blazor Web App
+      toStackVersion: ".NET 8"
+  grouping_needed: false
+  deep_planning: undecided
+
+progress_sync:
+  run_id: "30cb0377-521a-4005-9477-4db1d3327535"
+  grouping_mode: none
+  execution_mode: all-at-once
+  plan_start_time: "2026-10-22T14:57:25Z"
+  plan_completed_time: "2026-10-22T17:01:54Z"
+  execution_start_time: "2026-10-22T17:31:12Z"
+  execution_completed_time: ""
+  validation_start_time: ""
+  validation_completed_time: ""
+  total_phases: 7
+  completed_phases: 0
+  total_modules: 1
+  completed_modules: 0
+  total_tasks: 9
+  completed_tasks: 1
+  total_commits: 2
+  build_verified: false
+  test_verified: false
