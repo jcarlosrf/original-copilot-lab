@@ -1,10 +1,13 @@
 using ECommAppBlazor.Components;
+using ECommAppBlazor.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+builder.Services.AddScoped<ICatalogService, CatalogService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 var app = builder.Build();
 
