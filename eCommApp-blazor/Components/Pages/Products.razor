@@ -1,0 +1,74 @@
+@page "/products"
+@inject IWebHostEnvironment WebHostEnvironment
+@inject ILogger<Products> Logger
+
+<PageTitle>Products | The Daily Harvest</PageTitle>
+
+@if (isLoading)
+{
+    <div class="loading">Loading products...</div>
+}
+else
+{
+    <section class="products-container">
+        <h2>Our Products</h2>
+        <div class="products-grid">
+            @foreach (var product in products)
+            {
+                <article class="product-card">
+                    <img src="@GetImageUrl(product)" alt="@GetName(product)" class="product-image" />
+                    <div class="product-info">
+                        <h3 class="product-name">@GetName(product)</h3>
+                        <p class="product-price">@GetPrice(product)</p>
+                        <p class="product-description">@GetDescription(product)</p>
+                        <button type="button"
+                                class="add-to-cart-btn @(IsInStock(product) ? string.Empty : "disabled")"
+                                disabled="@(!IsInStock(product))">
+                            @(IsInStock(product) ? "Add to Cart" : "Out of Stock")
+                        </button>
+                    </div>
+                </article>
+            }
+        </div>
+    </section>
+}
+
+@code {
+    private static readonly string[] ProductFiles = ["apple.json", "grapes.json", "orange.json", "pear.json"];
+    private readonly List<JsonElement> products = [];
+    private bool isLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            foreach (var fileName in ProductFiles)
+            {
+                var filePath = Path.Combine(WebHostEnvironment.WebRootPath, "products", fileName);
+                using var document = JsonDocument.Parse(await File.ReadAllTextAsync(filePath));
+                products.Add(document.RootElement.Clone());
+            }
+        }
+        catch (Exception exception)
+        {
+            Logger.LogError(exception, "Error loading products.");
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+
+    private static string GetName(JsonElement product) => product.GetProperty("name").GetString() ?? string.Empty;
+
+    private static string GetDescription(JsonElement product) => product.GetProperty("description").GetString() ?? string.Empty;
+
+    private static string GetImageUrl(JsonElement product) => $"/products/productImages/{product.GetProperty("image").GetString()}";
+
+    private static string GetPrice(JsonElement product) => string.Format(
+        CultureInfo.InvariantCulture,
+        "${0:0.00}",
+        product.GetProperty("price").GetDecimal());
+
+    private static bool IsInStock(JsonElement product) => product.GetProperty("inStock").GetBoolean();
+}

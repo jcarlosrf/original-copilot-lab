@@ -21,6 +21,46 @@
       "PackagePath": "staticwebassets\\favicon.png"
     },
     {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\apple.json",
+      "PackagePath": "staticwebassets\\products\\apple.json"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\grapes.json",
+      "PackagePath": "staticwebassets\\products\\grapes.json"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\orange.json",
+      "PackagePath": "staticwebassets\\products\\orange.json"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\pear.json",
+      "PackagePath": "staticwebassets\\products\\pear.json"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\productImages\\apple.png",
+      "PackagePath": "staticwebassets\\products\\productImages\\apple.png"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\productImages\\grapes.png",
+      "PackagePath": "staticwebassets\\products\\productImages\\grapes.png"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\productImages\\orange.png",
+      "PackagePath": "staticwebassets\\products\\productImages\\orange.png"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\products\\productImages\\pear.png",
+      "PackagePath": "staticwebassets\\products\\productImages\\pear.png"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\site.css",
+      "PackagePath": "staticwebassets\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\jsra\\source\\gft\\original-copilot-lab\\eCommApp-blazor\\wwwroot\\storefront.css",
+      "PackagePath": "staticwebassets\\storefront.css"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.ECommAppBlazor.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
