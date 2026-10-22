@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ECommAppBlazor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+841cf647badbe24ba47885326c78719d8eee2f1c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e434d820ef9fed0c2c4c6a2b12cbe00a58630784")]
 [assembly: System.Reflection.AssemblyProductAttribute("ECommAppBlazor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ECommAppBlazor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

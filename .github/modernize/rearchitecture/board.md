@@ -14,6 +14,7 @@
 **Plan completed**: 2026-10-22T17:01:54Z
 **Commit (Environment Preparation)**: 4e72848c5fbe12c1e630c6711a915611c8b77a96
 **Commit (Scaffold)**: 841cf647badbe24ba47885326c78719d8eee2f1c
+**Commit (Implementation)**: e434d820ef9fed0c2c4c6a2b12cbe00a58630784
 
 ## Tasks
 
@@ -31,7 +32,7 @@
 - ✅ t9 [devops] Scan and remediate .NET dependency CVEs via skill(cve-remediation) (2026-10-22T18:49:35Z→2026-10-22T18:55:52Z, 6m 17s) [deps: t4]
 
 ### Phase: Review
-- ⏳ t5 [architect] Run independent .NET 8 build and startup smoke test [deps: t3, t4, t9]
+- ✅ t5 [architect] Run independent .NET 8 build and startup smoke test (2026-10-22T19:00:37Z→2026-10-22T19:30:05Z, 29m 28s) [deps: t3, t4, t9]
 - ✅ t6 [ux] Review UI parity and responsive behavior (2026-10-22T18:49:35Z→2026-10-22T18:56:53Z, 7m 18s) [deps: t1, t4]
 
 ### Phase: Validation
