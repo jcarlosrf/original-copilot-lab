@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\ECommAppBlazor.props" />
-</Project>
